@@ -1,0 +1,72 @@
+<div class="container">
+  <h5 class="text-center mt-3">PURCHASE REQUEST</h5>
+  <div class="d-flex my-2">
+    <a
+      href="#"
+      routerLink="/products/add"
+      class="btn btn-outline-success ms-auto"
+      >Create New Product</a
+    >
+  </div>
+  <div class="table-responsive">
+    <table class="table table-bordered p-0 m-0">
+      <caption>
+        List Items Under Purchase Request List
+      </caption>
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Product Name</th>
+          <th scope="col">Purchase Date</th>
+          <th scope="col">Product Code</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Receiver Email</th>
+          <th scope="col">Signature Image</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr scope="row" *ngFor="let product of products">
+          <td>{{ product?.id }}</td>
+          <td>{{ product?.productName }}</td>
+          <td>{{ product?.purchaseDate | date : "dd/MM/yyyy" }}</td>
+          <td>{{ product?.productCode }}</td>
+          <td>{{ product?.quantity }}</td>
+          <td>{{ product?.receiverEmail }}</td>
+          <td>{{ product?.signatureImg }}</td>
+          <td>
+            <a
+              href="#"
+              [routerLink]="['/products/', product.id, 'view']"
+              class="btn btn-info m-1"
+              >View</a
+            >
+            <a
+              href="#"
+              [routerLink]="['/products/', product.id, 'edit']"
+              class="btn btn-primary m-1"
+              >Edit</a
+            >
+            <button
+              type="button"
+              (click)="deleteProduct(product.id)"
+              class="btn btn-danger m-1"
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
+        <tr scope="row" *ngIf="products.length === 0">
+          <td colspan="6" class="text-center">No record found</td>
+        </tr>
+      </tbody>
+    </table>
+    <mat-paginator
+      [pageSizeOptions]="[5, 10, 25, 100]"
+      [pageSize]="5"
+      [length]="totalElements"
+      (page)="nextPage($event)"
+    >
+    </mat-paginator>
+  </div>
+</div>

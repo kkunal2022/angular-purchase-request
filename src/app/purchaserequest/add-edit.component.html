@@ -1,0 +1,212 @@
+<div class="card card-container form">
+  <h5 class="text-center">{{ id ? "Edit" : "Add" }} Purchase Request</h5>
+  <div class="row">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="col s12">
+      <div class="row">
+        <div class="col s12">
+          <label for="productName">Product Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="productName"
+            formControlName="productName"
+          />
+          <div class="alert-danger">
+            <div
+              *ngIf="
+                form.controls.productName.touched &&
+                form.controls.productName.errors?.required
+              "
+            >
+              * Required
+            </div>
+            <div
+              *ngIf="
+                form.controls.productName.touched &&
+                form.controls.productName.errors?.minlength
+              "
+            >
+              Minimum length is
+              {{ form.controls.productName.errors?.minlength.requiredLength }}
+              and actual is
+              {{ form.controls.productName.errors?.minlength.actualLength }}
+            </div>
+            <div
+              *ngIf="
+                form.controls.productName.touched &&
+                form.controls.productName.errors?.maxlength
+              "
+            >
+              Maximum length is
+              {{ form.controls.productName.errors?.maxlength.requiredLength }}
+              and actual is
+              {{ form.controls.productName.errors?.maxlength.actualLength }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s12">
+          <label for="purchaseDate">Purchase Date</label>
+          <mat-form-field appearance="outline">
+            <mat-label>Choose a date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="datepicker"
+              formControlName="purchaseDate"
+              name="purchaseDate"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="datepicker"
+              style="width: 1em"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #datepicker>
+              <mat-datepicker-actions>
+                <button mat-button matDatepickerCancel>Cancel</button>
+                <button mat-raised-button color="primary" matDatepickerApply>
+                  Apply
+                </button>
+              </mat-datepicker-actions>
+            </mat-datepicker>
+          </mat-form-field>
+          <div class="alert-danger">
+            <div
+              *ngIf="
+                form.controls.purchaseDate.touched &&
+                form.controls.purchaseDate.errors?.required
+              "
+            >
+              * Required
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s12">
+          <label for="productCode">Product Code</label>
+          <input
+            type="text"
+            class="form-control"
+            name="productCode"
+            formControlName="productCode"
+          />
+          <div class="alert-danger">
+            <div
+              *ngIf="
+                form.controls.productCode.touched &&
+                form.controls.productCode.errors?.required
+              "
+            >
+              * Required
+            </div>
+            <div
+              *ngIf="
+                form.controls.productCode.touched &&
+                form.controls.productCode.errors?.minlength
+              "
+            >
+              Minimum length is
+              {{ form.controls.productCode.errors?.minlength.requiredLength }}
+              and actual is
+              {{ form.controls.productCode.errors?.minlength.actualLength }}
+            </div>
+            <div
+              *ngIf="
+                form.controls.productCode.touched &&
+                form.controls.productCode.errors?.maxlength
+              "
+            >
+              Maximum length is
+              {{ form.controls.productCode.errors?.maxlength.requiredLength }}
+              and actual is
+              {{ form.controls.productCode.errors?.maxlength.actualLength }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s12">
+          <label for="quantity">Quantity</label>
+          <input
+            type="text"
+            class="form-control"
+            name="quantity"
+            formControlName="quantity"
+          />
+          <div class="alert-danger">
+            <div
+              *ngIf="
+                form.controls.quantity.touched &&
+                form.controls.quantity.errors?.required
+              "
+            >
+              * Required
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s12">
+          <label for="receiverEmail">Receiver Email</label>
+          <input
+            type="text"
+            class="form-control"
+            name="receiverEmail"
+            formControlName="receiverEmail"
+          />
+          <div class="alert-danger">
+            <div
+              *ngIf="
+                form.controls.receiverEmail.touched &&
+                form.controls.receiverEmail.errors?.required
+              "
+            >
+              * Required
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h4>Please Add your signature here</h4>
+      <canvas
+        #canvas
+        (touchstart)="startDrawing($event)"
+        (touchmove)="moved($event)"
+        width="700"
+        height="200"
+      ></canvas>
+      <p class="error-message" *ngIf="signatureNeeded">Signature is required</p>
+
+      <div class="buttons flex justify-between">
+        <button (click)="clearPad()">Clear</button>
+        <button (click)="savePad()">Submit the signature</button>
+      </div>
+
+      <div *ngIf="signatureNeeded === false">
+        <p>Signature in Base64Encoded Format</p>
+        <img src="{{ signatureImg }}" alt="" srcset="" />
+      </div>
+
+      <br />
+      <div class="d-flex gap-2">
+        <a href="#" routerLink="/products/list" class="btn btn-secondary w-100"
+          >Cancel</a
+        >
+        <button
+          class="btn btn-primary w-100"
+          [disabled]="form.pristine || form.invalid"
+        >
+          {{ id ? "Update" : "Create" }}
+        </button>
+      </div>
+      <div class="alert alert-warning" *ngIf="errorMessage">
+        Failed: {{ errorMessage }}
+      </div>
+    </form>
+  </div>
+</div>

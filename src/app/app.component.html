@@ -1,0 +1,46 @@
+<div id="app">
+  <nav class="navbar navbar-expand-md navbar-expand-sm bg-light">
+    <a class="navbar-brand p-0" href="/">
+      <img
+        src="/assets/img/logo.png"
+        width="200"
+        height="50"
+        alt="Kumar Kunal - Tendai Consulting Service"
+      />
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarCollapse"
+      aria-controls="navbarCollapse"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav me-auto mb-2 mb-md-0" routerLinkActive="active">
+        <li class="nav-item">
+          <a href="/products" class="nav-link" routerLink="products"
+            >Purchase Request</a
+          >
+        </li>
+        <li class="nav-item">
+          <a href="/products/list" class="nav-link" routerLink="products"
+            >Purchase Request List</a
+          >
+        </li>
+      </ul>
+
+      <!--
+			<ul>
+				<li class="nav-item"><a href class="nav-link" (click)="logout()">LogOut</a></li>
+			</ul>
+      -->
+    </div>
+  </nav>
+  <div class="container-fluid">
+    <router-outlet></router-outlet>
+  </div>
+</div>
